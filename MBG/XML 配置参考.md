@@ -56,5 +56,15 @@
 以下是这个文件的重点注释：
 
 - 该文件制定 legacy db2 cli 驱动将被使用来连接数据库，同时也制定驱动在那里能被找到
-- java 类型解析器不应该强制使用 BigDecimal 字段- 这意味如果可能，将替换整数类型(短、整数、长等)。
-- 
+
+- java Type Resolver不应该强制使用 BigDecimal 字段- 这意味如果可能，将替换整数类型(短、整数、长等)。这个特征试图让数据库 DECIMAL 和 NUMERIC 列更容易被处理。
+
+- Java model generator 应该使用子包，意思是在上面的案例中生成模型对象将被放置在包名叫做 **test.model.db2admin** （因为该表位于DB2admin模式中），如果 enableSubPackages 属性设置为 false , 包将会是 **test.model**. Java model generator也应该 trim strings. 这意味着任何String属性的setter都将调用trim函数 - 如果你的数据库在字符列可能返回空白字符这是非常有用的。
+
+- SQL Map generator 应该使用子包，这意味着在上面的案列中生成的XML文件将被放置在包名叫做 **test.xml.db2admin**（因为该表位于DB2admin模式中). 如果 enableSubPackages 属性被设置为 false, 包会是 **test.xml**
+
+- DAO generator 应该使用子包，这意味着在上面的案列中生成的DAO类将被放置在包名叫做 **test.dao.db2admin** 中（因为该表位于DB2admin模式中)。如果 enableSubPackages 属性被设置为 false，包会是 **test.dao**。DAO generator 会参照mybatis xml 配置文件生成 mapper 接口。
+
+- 该文件指定一个表将被内省，但是可以指定更多的表。有关指定表的重要说明包括：
+
+  ​	
