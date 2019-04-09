@@ -67,4 +67,11 @@
 
 - 该文件指定一个表将被内省，但是可以指定更多的表。有关指定表的重要说明包括：
 
+  - ​	生成的对象将基于Customer（CustomerKey,Customer,CustomerMapper等等）而不是表名。
+  - 实际上列名将被当做属性名。如果这个属性被设置为false(或者是没有指定)， MBG将会尝试驼峰规则将列名翻译为属性名。在任一情况下，属性名可以通过<columnOverride> 元素重写。
+  - 该列具有生成的密钥，它是标识列，数据库类型是DB2。 这将导致MBG在生成的<insert>语句中生成正确的<selectKey>元素，以便可以返回新生成的密钥（使用DB2特定的SQL）。
+  - DATE_FIELD 列将被映射成一个叫做startDate的属性。这将覆盖在本列中 DATE_FIELD 的默认属性。或者 dateField 如果 userActualColmunNames 属性被设置为false.
+  - fred 列将被忽略， 没有 sql 会列出这个字段，并且没有Java属性将被生成。
+  - LONG_VARCHAR_FIELD 列将被当做 VARCHAR字段而不管实际数据类型。
+
   ​	
